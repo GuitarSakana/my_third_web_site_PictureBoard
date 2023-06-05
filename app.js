@@ -7,6 +7,7 @@ const destroy_btn = document.querySelector('#destroy-btn');
 const eraser_btn = document.querySelector('#eraser-btn');
 const fileIn = document.querySelector('#file');
 const textIn = document.querySelector('#text');
+const save_btn = document.querySelector('#save');
 const ctx = canvas.getContext('2d');
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 800; 
@@ -107,6 +108,13 @@ function onDubleClick(event){
         ctx.restore();
     }
 }
+function onSaveClick(){
+    const url = canvas.toDataURL();
+    const a =document.createElement("a");
+    a.href=url;
+    a.download='myDrawing.png'
+    a.click();
+}
 
 mode_btn.addEventListener('click',onModeClick);
 destroy_btn.addEventListener('click',onDestroyClick);
@@ -114,3 +122,4 @@ eraser_btn.addEventListener('click',onEraserClick);
 fileIn.addEventListener('change',onfileChange);
 
 canvas.addEventListener("dblclick",onDubleClick);
+save_btn.addEventListener('click',onSaveClick);
