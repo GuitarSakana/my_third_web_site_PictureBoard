@@ -4,12 +4,16 @@ const line_color = document.querySelector('#color');
 const colorOption = Array.from(document.getElementsByClassName('color-option'));
 const mode_btn = document.querySelector('#mode-btn');
 const destroy_btn = document.querySelector('#destroy-btn');
+const eraser_btn = document.querySelector('#eraser-btn');
+const fileIn = document.querySelector('#file');
+const textIn = document.querySelector('#text');
 const ctx = canvas.getContext('2d');
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 800; 
 canvas.width = CANVAS_WIDTH; canvas.height = CANVAS_HEIGHT;
 
 ctx.lineWidth=line_width.value;
+ctx.lineCap="round";
 ctx.strokeStyle = 'black';
 let isPainting= false;
 let isFilling = false;
@@ -40,7 +44,7 @@ function onLineColorChange(event){
 }
 function onCanvasClick(){
     if(isFilling){
-        canvas.style.backgroundColor=ctx.strokeStyle;
+        ctx.fillRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT) ;
     }
 }
 canvas.addEventListener('mousemove',onMove);
@@ -57,7 +61,10 @@ function onColorClick(event){
     line_color.value = event.target.dataset.color;
     // console.dir(event.target.dataset.color);
 }
+
+
 colorOption.forEach((color) => color.addEventListener("click",onColorClick));
+
 
 function onModeClick(){
     if(isFilling){
@@ -72,6 +79,38 @@ function onDestroyClick(){
     ctx.fillStyle="white";
     ctx.fillRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
 }
+function onEraserClick(){
+    if(isFilling){
+        onModeClick();
+    }
+    ctx.strokeStyle='white';
+}
+function onfileChange(event){
+    const file = event.target.files[0];
+    const url = URL.createObjectURL(file);      //임시 url을 생성해주는 메소드
+    const imag = new Image();
+    imag.src= url;
+    imag.onload=function(){
+        ctx.drawImage(imag,170,110);
+    }
+    fileIn.value=null;
+}
+function onDubleClick(event){
+    const text = textIn.value;
+    if(text == ""){
+        return;
+    }else{
+        ctx.save();
+        ctx.lineWidth = 1;
+        ctx.font='48px 휴먼편지체';
+        ctx.fillText(text,event.offsetX,event.offsetY);
+        ctx.restore();
+    }
+}
 
 mode_btn.addEventListener('click',onModeClick);
 destroy_btn.addEventListener('click',onDestroyClick);
+eraser_btn.addEventListener('click',onEraserClick);
+fileIn.addEventListener('change',onfileChange);
+
+canvas.addEventListener("dblclick",onDubleClick);
