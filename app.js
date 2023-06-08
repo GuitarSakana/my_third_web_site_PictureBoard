@@ -1,3 +1,4 @@
+const body = document.querySelector('body');
 const canvas = document.querySelector('canvas');
 const line_width = document.querySelector('#line_width');
 const eraser_width = document.querySelector('#eraser_width');
@@ -145,6 +146,7 @@ function onFillClick(){         //캔버스 배경색 채우기 함수
     isFD=false;isSD=false;
     isFilling = true;
     ButtonToggle();
+    body.style.cursor = "url(Cursor_picture/paint-brush.png) 0 30, auto";
 }
 
 function onDrawClick(){         //연필그리기 함수
@@ -158,6 +160,7 @@ function onDrawClick(){         //연필그리기 함수
     ctx.strokeStyle = line_color.value;
     ctx.fillStyle = line_color.value;
     ButtonToggle();
+    body.style.cursor = "url(Cursor_picture/pencil.png) 0 30, auto";
 }
 
 function onStrokeDraw(){        //연필그리기_선그리기
@@ -216,6 +219,7 @@ function onEraserClick(){           //지우개 버튼
     ctx.strokeStyle='white';
     ctx.lineWidth = eraser_width.value;
     ButtonToggle();
+    body.style.cursor = "url(Cursor_picture/eraser.png) 0 30, auto";
 }
 
 function onfileChange(event){           //캔버스에 그림을 가져오는 함수(그림 붙여넣기)

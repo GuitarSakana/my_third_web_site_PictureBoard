@@ -8,6 +8,7 @@ body{
     background-color: gainsboro;
     padding: 20px;
     font-family: '휴먼편지체';
+    cursor: url('Cursor_picture/pencil.png') 0 30, auto; 
 }
 canvas{
     width: 800px; height: 800px;
