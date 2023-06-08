@@ -29,6 +29,9 @@ let isDrawing = true;
 let isSD = true;       //그리기_선그리기
 let isFD = false;       //그리기_색채우기
 let isEraser = false;   //지우개
+ButtonToggle();
+
+
 
 
 function onMove(event){                 //클릭상태일때는 그림을 그리고 아닐 때는 좌표만 잡는다.
@@ -85,15 +88,31 @@ function onCanvasClick(){       //캔버스를 클릭했을 때 isFilling상태�
         ctx.fillRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT) ;
     }
 }
-
+function onFunctionChange(){
+    if(isDrawing){
+        if(isSD){
+            isFD=true;
+            isSD=false;
+            ButtonToggle();
+        }else{
+            isFD=false;
+            isSD=true;
+            ButtonToggle();
+        }
+    }else{
+        return;
+    }
+}
 canvas.addEventListener('mousemove',onMove);    
 canvas.addEventListener('mousedown',startPainting);
 canvas.addEventListener('mouseup',cancelPainting);
-canvas.addEventListener('mouseleave',cancelPainting);
+// canvas.addEventListener('mouseleave',cancelPainting);
 canvas.addEventListener('click',onCanvasClick);     //fill 상태일때 전체 배경 넣기
+canvas.addEventListener('contextmenu',onFunctionChange);
 line_width.addEventListener('change',onLineWidthChange);
 eraser_width.addEventListener('change',onEraserWidthChange);
 line_color.addEventListener('change',onLineColorChange);
+
 
 
 
@@ -112,6 +131,9 @@ colorOption.forEach((color) => color.addEventListener("click",onColorClick));   
 
 
 
+
+
+
 function onFillClick(){         //캔버스 배경색 채우기 함수
     if(isPainting){
         isPainting =false;
@@ -122,6 +144,7 @@ function onFillClick(){         //캔버스 배경색 채우기 함수
     isDrawing = false;
     isFD=false;isSD=false;
     isFilling = true;
+    ButtonToggle();
 }
 
 function onDrawClick(){         //연필그리기 함수
@@ -129,10 +152,12 @@ function onDrawClick(){         //연필그리기 함수
         isFilling = false;
     }
     isEraser=false;
+    isDrawing=true;
     isSD=true;
     ctx.lineWidth=line_width.value;
     ctx.strokeStyle = line_color.value;
     ctx.fillStyle = line_color.value;
+    ButtonToggle();
 }
 
 function onStrokeDraw(){        //연필그리기_선그리기
@@ -146,6 +171,7 @@ function onStrokeDraw(){        //연필그리기_선그리기
         isFD=false;
     }
     isSD=true;
+    ButtonToggle();
 }
 
 function onFillDraw(){              //연필그리기_색채우기
@@ -160,6 +186,7 @@ function onFillDraw(){              //연필그리기_색채우기
         isSD=false;
     }
     isFD=true;
+    ButtonToggle();
 }
 
 function onDestroyClick(){          //전부 초기화 (캔버스를 흰색으로 덮어씀)
@@ -188,6 +215,7 @@ function onEraserClick(){           //지우개 버튼
     isEraser = true;
     ctx.strokeStyle='white';
     ctx.lineWidth = eraser_width.value;
+    ButtonToggle();
 }
 
 function onfileChange(event){           //캔버스에 그림을 가져오는 함수(그림 붙여넣기)
@@ -239,3 +267,13 @@ text_width.addEventListener('change',onFontSet);
 
 canvas.addEventListener("dblclick",onDubleClick);
 save_btn.addEventListener('click',onSaveClick);
+
+
+
+function ButtonToggle(){
+    isDrawing==true?draw_btn.classList.add('choice'):draw_btn.classList.remove('choice');
+    isFilling==true?fill_btn.classList.add('choice'):fill_btn.classList.remove('choice');
+    isSD==true?dr_stroke_btn.classList.add('choice'):dr_stroke_btn.classList.remove('choice');
+    isFD==true?dr_fill_btn.classList.add('choice'):dr_fill_btn.classList.remove('choice');
+    isEraser==true?eraser_btn.classList.add('choice'):eraser_btn.classList.remove('choice');
+}
