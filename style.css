@@ -3,23 +3,16 @@
 body{
     display: flex;
     gap: 20px;
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     background-color: gainsboro;
     padding: 20px;
+    font-family: '휴먼편지체';
 }
-
 canvas{
     width: 800px; height: 800px;
     background-color: white;
     border-radius: 10px;
-}
-
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: '휴먼편지체';
 }
 .color-options{
     display: flex;
@@ -27,7 +20,6 @@ body{
     align-items: center;
     gap: 10px;
 }
-
 .color-option{
     width: 50px; height: 50px;
     cursor: pointer;
@@ -45,13 +37,23 @@ body{
     gap: 20px;
     margin-left: 60px;
 }
+#btn1{
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+#btn2{
+    display: flex;
+    justify-content: space-between;
+    gap:5px;
+}
 input#color{
     background-color: white;
 }
 
 button{
     all: unset;
-    padding:10px 0px;
+    padding:20px 40px;
     text-align: center;
     background-color: royalblue;
     color: white;
@@ -61,6 +63,20 @@ button{
     transition: opacity linear .3s;
 }
 button:hover{
+    opacity: 0.8;
+}
+select{
+    all: unset;
+    padding:20px 40px;
+    text-align: center;
+    background-color: royalblue;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: opacity linear .3s;
+}
+select:hover{
     opacity: 0.8;
 }
 
@@ -88,4 +104,10 @@ label{
 }
 label:hover{
     opacity: 0.8;
+}
+.btns span{
+    font-weight: bold;
+}
+.selectYellow{
+    background-color: lightgoldenrodyellow;
 }
