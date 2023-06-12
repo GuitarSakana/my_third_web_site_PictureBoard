@@ -7,7 +7,7 @@ body{
     align-items: center;
     background-color: gainsboro;
     padding: 20px;
-    font-family: '휴먼편지체';
+    /* font-family: '휴먼편지체'; */
     cursor: url('Cursor_picture/pencil.png') 0 30, auto; 
 }
 canvas{
@@ -23,7 +23,6 @@ canvas{
 }
 .color-option{
     width: 50px; height: 50px;
-    cursor: pointer;
     border-radius: 50%;
     transition: transform ease-in-out .1s;
     border: solid 5px white;
@@ -50,6 +49,7 @@ canvas{
 }
 input#color{
     background-color: white;
+    cursor: pointer;
 }
 
 button{
@@ -89,6 +89,9 @@ input#text{
     font-weight: 500;
     background-color: white;
 }
+input#text:hover{
+    cursor: text;
+}
 
 input#file{
     display: none;
@@ -105,6 +108,9 @@ label{
 }
 label:hover{
     opacity: 0.8;
+}
+#line_width, #eraser_width, #text_width{
+    cursor: pointer;
 }
 .btns span{
     font-weight: bold;

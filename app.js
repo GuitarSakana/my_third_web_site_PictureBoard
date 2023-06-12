@@ -15,6 +15,7 @@ const textIn = document.querySelector('#text');
 const save_btn = document.querySelector('#save');
 const fontSelect_btn = document.querySelector('#fontFamily');
 const text_width = document.querySelector('#text_width');
+const selectFont = document.querySelector('#fontFamily');
 
 const ctx = canvas.getContext('2d');
 const CANVAS_WIDTH = 800;
@@ -86,7 +87,8 @@ function onEraserWidthChange(event){        //지우개 두께 변경함수
 
 function onCanvasClick(){       //캔버스를 클릭했을 때 isFilling상태이면 전체 배경 채우기
     if(isFilling){
-        ctx.fillRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT) ;
+        ctx.fillRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+        canvas.style.backgroundColor = ctx.fillStyle;
     }
 }
 function onFunctionChange(){
@@ -169,6 +171,7 @@ function onStrokeDraw(){        //연필그리기_선그리기
         return;
     }else if(isEraser){
         alert('지우개 상태일 때는 사용이 불가능 합니다.');
+        return;
     }
     if(isFD){
         isFD=false;
@@ -198,11 +201,19 @@ function onDestroyClick(){          //전부 초기화 (캔버스를 흰색으�
             isEraser=false;
             ctx.lineWidth = line_width.value;
             isDrawing=true;isSD=true;
+            ctx.strokeStyle=line_color.value;
+            ctx.fillStyle=line_color.value;
+            ButtonToggle();
         }
         ctx.save();
-        ctx.fillStyle="white";
+        ctx.fillStyle= "white";
         ctx.fillRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
         ctx.restore();
+        if(isFilling==true){
+            body.style.cursor = "url(Cursor_picture/paint-brush.png) 0 30, auto";
+        }else{
+            body.style.cursor = "url(Cursor_picture/pencil.png) 0 30, auto";
+        }
    }else{
         return;
    }
@@ -216,7 +227,7 @@ function onEraserClick(){           //지우개 버튼
     isSD=false;
     isDrawing = false;
     isEraser = true;
-    ctx.strokeStyle='white';
+    ctx.strokeStyle=canvas.style.backgroundColor;
     ctx.lineWidth = eraser_width.value;
     ButtonToggle();
     body.style.cursor = "url(Cursor_picture/eraser.png) 0 30, auto";
@@ -274,10 +285,20 @@ save_btn.addEventListener('click',onSaveClick);
 
 
 
-function ButtonToggle(){
+function ButtonToggle(){        //무엇을 사용하고 있는지 보여주는 표시 함수.
     isDrawing==true?draw_btn.classList.add('choice'):draw_btn.classList.remove('choice');
     isFilling==true?fill_btn.classList.add('choice'):fill_btn.classList.remove('choice');
     isSD==true?dr_stroke_btn.classList.add('choice'):dr_stroke_btn.classList.remove('choice');
     isFD==true?dr_fill_btn.classList.add('choice'):dr_fill_btn.classList.remove('choice');
     isEraser==true?eraser_btn.classList.add('choice'):eraser_btn.classList.remove('choice');
+}
+
+
+// 텍스트 글꼴 변경 코드 (글꼴 option을 변경하면 select에 변경 글씨체로 표기)
+selectFont.addEventListener('change',changeFont);
+function changeFont(event){
+    const selectedIndex = selectFont.selectedIndex;
+    const selectedOption = selectFont.options[selectedIndex];
+    const selectedValue = selectedOption.value;
+    event.target.style.fontFamily = `${selectedValue}`;
 }
