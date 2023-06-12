@@ -6,18 +6,26 @@ body{
     justify-content: center;
     align-items: center;
     background-color: gainsboro;
-    padding: 20px;
+    padding: 50px;
     /* font-family: '휴먼편지체'; */
     cursor: url('Cursor_picture/pencil.png') 0 30, auto; 
 }
-canvas{
-    width: 800px; height: 800px;
-    background-color: white;
-    border-radius: 10px;
-}
-.color-options{
+
+#color_canvas{
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+input#color{
+    width: 50px; height: 45px;
+    background-color: white;
+    border-radius:6px;
+    cursor: pointer;
+}
+.color-options{
+    width: 840px; height: 40px;
+    display: flex;
     align-items: center;
     gap: 10px;
 }
@@ -30,12 +38,20 @@ canvas{
 .color-option:hover{
     transform: scale(1.2);
 }
+.selectedOption{
+    width: 65px; height: 65px;
+    pointer-events: none;
+}
+canvas{
+    width: 800px; height: 800px;
+    background-color: white;
+    border-radius: 10px;
+}
 
 .btns{
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin-left: 60px;
 }
 #btn1{
     display: flex;
@@ -46,10 +62,6 @@ canvas{
     display: flex;
     justify-content: space-between;
     gap:5px;
-}
-input#color{
-    background-color: white;
-    cursor: pointer;
 }
 
 button{

@@ -16,6 +16,9 @@ const save_btn = document.querySelector('#save');
 const fontSelect_btn = document.querySelector('#fontFamily');
 const text_width = document.querySelector('#text_width');
 const selectFont = document.querySelector('#fontFamily');
+const line_width_call = document.querySelector('#line_width_call');
+const eraser_width_call = document.querySelector('#eraser_width_call');
+const text_width_call = document.querySelector('#text_width_call');
 
 const ctx = canvas.getContext('2d');
 const CANVAS_WIDTH = 800;
@@ -32,6 +35,10 @@ let isSD = true;       //그리기_선그리기
 let isFD = false;       //그리기_색채우기
 let isEraser = false;   //지우개
 ButtonToggle();
+
+line_width_call.innerHTML = `[${line_width.value}]`;
+eraser_width_call.innerHTML = `[${eraser_width.value}]`;
+text_width_call.innerHTML = `[${text_width.value}]`;
 
 
 
@@ -65,6 +72,7 @@ function onLineWidthChange(event){              //펜 두께 변경 함수.
         return;
     }else{
         ctx.lineWidth = event.target.value;
+        line_width_call.innerHTML = `[${event.target.value}]`;
     }
 }
 
@@ -79,9 +87,11 @@ function onLineColorChange(event){      //펜 색 변경함수,  지우개 상�
 
 function onEraserWidthChange(event){        //지우개 두께 변경함수
     if(isDrawing){
+        eraser_width_call.innerHTML = `[${event.target.value}]`;
         return;
     }else{
         ctx.lineWidth = event.target.value;
+        eraser_width_call.innerHTML = `[${event.target.value}]`;
     }
 }
 
@@ -121,16 +131,27 @@ line_color.addEventListener('change',onLineColorChange);
 
 
 
+
 function onColorClick(event){   //샘플 색 선택시 작동하는 함수
     if(isEraser){
         alert('지우개 상태에서는 색 선택이 불가능 합니다.');
         return;
     }
-    ctx.strokeStyle=event.target.dataset.color;
-    ctx.fillStyle = event.target.dataset.color;
-    line_color.value = event.target.dataset.color;
+    if(event.target.classList.contains('selectedOption')){
+        return;
+    }else{
+        const previousSelectedColor = document.querySelector('.selectedOption');
+        if(previousSelectedColor){
+            previousSelectedColor.classList.remove('selectedOption');
+        }
+        event.target.classList.add('selectedOption');
+        ctx.strokeStyle=event.target.dataset.color;
+        ctx.fillStyle = event.target.dataset.color;
+        line_color.value = event.target.dataset.color;
+    }
 }
 colorOption.forEach((color) => color.addEventListener("click",onColorClick));       //샘플 색 선택
+
 
 
 
@@ -208,6 +229,7 @@ function onDestroyClick(){          //전부 초기화 (캔버스를 흰색으�
         ctx.save();
         ctx.fillStyle= "white";
         ctx.fillRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+        canvas.style.backgroundColor = 'white';
         ctx.restore();
         if(isFilling==true){
             body.style.cursor = "url(Cursor_picture/paint-brush.png) 0 30, auto";
@@ -223,13 +245,18 @@ function onEraserClick(){           //지우개 버튼
     if(isFilling){
         isFilling=false;
     }
+    if(canvas.style.backgroundColor==""){
+        ctx.strokeStyle="white";
+    }else{
+        ctx.strokeStyle=canvas.style.backgroundColor;
+        ctx.lineWidth = eraser_width.value;
+    }
     isFD=false;
     isSD=false;
     isDrawing = false;
     isEraser = true;
-    ctx.strokeStyle=canvas.style.backgroundColor;
-    ctx.lineWidth = eraser_width.value;
     ButtonToggle();
+    eraser_width_call.innerHTML = `[${eraser_width.value}]`;
     body.style.cursor = "url(Cursor_picture/eraser.png) 0 30, auto";
 }
 
@@ -264,10 +291,15 @@ function onSaveClick(){                 //캔버스 그림 이미지로 저장�
     a.download='myDrawing.png'
     a.click();
 }
-function onFontSet(){
+function onFontSet(event){
     const selectFont = fontSelect_btn.value;
     const fontsize = text_width.value;
     ctx.font=`${fontsize}px ${selectFont}`;
+    if(event.target.id=='fontFamily'){
+        return;
+    }else{
+        text_width_call.innerHTML = `[${event.target.value}]`;
+    }
 }
 
 draw_btn.addEventListener('click',onDrawClick);
@@ -293,7 +325,6 @@ function ButtonToggle(){        //무엇을 사용하고 있는지 보여주는 
     isEraser==true?eraser_btn.classList.add('choice'):eraser_btn.classList.remove('choice');
 }
 
-
 // 텍스트 글꼴 변경 코드 (글꼴 option을 변경하면 select에 변경 글씨체로 표기)
 selectFont.addEventListener('change',changeFont);
 function changeFont(event){
@@ -302,3 +333,4 @@ function changeFont(event){
     const selectedValue = selectedOption.value;
     event.target.style.fontFamily = `${selectedValue}`;
 }
+
