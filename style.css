@@ -2,35 +2,40 @@
 
 body{
     display: flex;
-    gap: 20px;
     justify-content: center;
-    align-items: center;
     background-color: gainsboro;
-    padding: 50px;
-    /* font-family: '휴먼편지체'; */
     cursor: url('Cursor_picture/pencil.png') 0 30, auto; 
 }
-
+#main{
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+    /* font-family: '휴먼편지체'; */
+}
 #color_canvas{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
 }
 input#color{
-    width: 50px; height: 45px;
+    width: 50px; height: 40px;
     background-color: white;
     border-radius:6px;
     cursor: pointer;
 }
 .color-options{
-    width: 840px; height: 40px;
+    width: 750px; height: 40px;
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 10px;
 }
 .color-option{
-    width: 50px; height: 50px;
+    width: 40px; height: 40px;
     border-radius: 50%;
     transition: transform ease-in-out .1s;
     border: solid 5px white;
@@ -39,19 +44,23 @@ input#color{
     transform: scale(1.2);
 }
 .selectedOption{
-    width: 65px; height: 65px;
+    width: 50px; height: 50px;
     pointer-events: none;
 }
 canvas{
-    width: 800px; height: 800px;
+    width: 1100px; height: 630px;
     background-color: white;
     border-radius: 10px;
 }
 
+
+img{
+    width: 20px; height: 20px;
+}
 .btns{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 13px;
 }
 #btn1{
     display: flex;
@@ -66,7 +75,7 @@ canvas{
 
 button{
     all: unset;
-    padding:20px 40px;
+    padding:15px 20px;
     text-align: center;
     background-color: royalblue;
     color: white;
@@ -95,10 +104,11 @@ select:hover{
 
 input#text{
     all: unset;
-    padding:10px 15px;
+    padding:13px 15px;
     text-align: center;
     border-radius: 10px;
     font-weight: 500;
+    font-size: 11.5px;
     background-color: white;
 }
 input#text:hover{
@@ -126,6 +136,7 @@ label:hover{
 }
 .btns span{
     font-weight: bold;
+    font-size: small;
 }
 .choice{
     background-color: darkblue;

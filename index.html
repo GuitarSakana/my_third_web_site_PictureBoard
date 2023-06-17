@@ -9,54 +9,57 @@
 </head>
 
 <body>
-    <div id="color_canvas">
-        <div class="color-options">
-            <input id="color" type="color">
-            <div class="color-option" style="background-color: #000000;" data-color="#000000"></div>
-            <div class="color-option" style="background-color: #95a5a6;" data-color="#95a5a6"></div>
-            <div class="color-option" style="background-color: #1abc9c;" data-color="#1abc9c"></div>
-            <div class="color-option" style="background-color: #27ae60;" data-color="#27ae60"></div>
-            <div class="color-option" style="background-color: #2ecc71;" data-color="#2ecc71"></div>
-            <div class="color-option" style="background-color: #8e44ad;" data-color="#8e44ad"></div>
-            <div class="color-option" style="background-color: #f1c40f;" data-color="#f1c40f"></div>
-            <div class="color-option" style="background-color: #3498db;" data-color="#3498db"></div>
-            <div class="color-option" style="background-color: #e74c3c;" data-color="#e74c3c"></div>
-            <div class="color-option" style="background-color: #d35400;" data-color="#d35400"></div>
-            <div class="color-option" style="background-color: #e67e22;" data-color="#e67e22"></div>
-        </div> <!-- 색 종류, 값 리스트-->
+    <div id="main">
 
-        <canvas oncontextmenu="return false;"></canvas>
+        <!-- 색 옵션, 캔버스-->
+        <div id="color_canvas">
+            <div class="color-options">
+                <input id="color" type="color">
+                <div class="color-option" style="background-color: #000000;" data-color="#000000"></div>
+                <div class="color-option" style="background-color: #95a5a6;" data-color="#95a5a6"></div>
+                <div class="color-option" style="background-color: #1abc9c;" data-color="#1abc9c"></div>
+                <div class="color-option" style="background-color: #27ae60;" data-color="#27ae60"></div>
+                <div class="color-option" style="background-color: #2ecc71;" data-color="#2ecc71"></div>
+                <div class="color-option" style="background-color: #8e44ad;" data-color="#8e44ad"></div>
+                <div class="color-option" style="background-color: #f1c40f;" data-color="#f1c40f"></div>
+                <div class="color-option" style="background-color: #3498db;" data-color="#3498db"></div>
+                <div class="color-option" style="background-color: #e74c3c;" data-color="#e74c3c"></div>
+                <div class="color-option" style="background-color: #d35400;" data-color="#d35400"></div>
+                <div class="color-option" style="background-color: #e67e22;" data-color="#e67e22"></div>
+            </div> <!-- 색 종류, 값 리스트-->
+
+            <!-- 캔버스(도화지)-->
+            <canvas oncontextmenu="return false;"></canvas>
+        </div>
+
+        <!-- 버튼 모음 -->
+        <div class="btns">
+            <span>펜 두께_<span id="line_width_call"></span></span>
+            <input id="line_width" type="range" min="1" max="20" value="5" step="0.1">
+            <div id="btn1"><button id="draw"><img src="Cursor_picture/pencil.png">&nbsp그리기</button> <button id="fill"><img src="Cursor_picture/paint-bucket.png">&nbsp배경채우기</button></div>
+            <button id="dr_stroke">그리기_선</button> <button id="dr_fill">그리기_채우기</button>
+            <span>지우개 두께_<span id="eraser_width_call"></span></span>
+            <input id="eraser_width" type="range" min="1" max="50" value="10" step="0.1">
+            <div id="btn2"><button id="eraser-btn"><img src="Cursor_picture/eraser.png">&nbsp지우개</button> <button id="destroy-btn"><img src="Cursor_picture/reset.png">&nbsp초기화</button></div>
+            <span>텍스트 크기_<span id="text_width_call"></span></span>
+            <input id="text_width" type="range" min="10" max="80" value="35" step="0.1">
+            <input id="text" type="text" placeholder="텍스트를 입력하고 캔버스를 더블클릭하세요.">
+            <select id="fontFamily" style="font-family: 굴림;">
+                <option value="">글꼴 선택  🔽</option>
+                <option style="font-family: 굴림;" value="굴림">굴림🔽</option>
+                <option style="font-family: 바탕;" value="바탕">바탕🔽</option>
+                <option style="font-family: 휴먼편지체;" value="휴먼편지체">휴먼편지체🔽</option>
+                <option style="font-family: HYPMokGak;" value="HYPMokGak">HYPMokGak🔽</option>
+                <option style="font-family: Brush Script MT;" value="Brush Script MT">Brush Script MT🔽</option>
+                <option style="font-family: Rage;" value="Rage">Rage🔽</option>
+                <option style="font-family: Gigi;" value="Gigi">Gigi🔽</option>
+            </select>
+            <label for="file">📂 사진 가져오기<input id="file" type="file" accept="image/*"></label>
+            <button id="save">💾 그림 저장하기</button>
+        </div>
+
     </div>
-
-
-    <div class="btns">
-        <span>펜 두께_<span id="line_width_call"></span></span>
-        <input id="line_width" type="range" min="1" max="20" value="5" step="0.1">
-        <div id="btn1"><button id="draw"><img src="Cursor_picture/pencil.png">&nbsp그리기</button> <button id="fill"><img src="Cursor_picture/paint-bucket.png">&nbsp배경채우기</button></div>
-        <button id="dr_stroke">그리기_선&nbsp<img src="Cursor_picture/drawing-a-straight.png"></button> <button id="dr_fill">그리기_채우기&nbsp<img src="Cursor_picture/edit-tools.png"> </button>
-        <span>지우개 두께_<span id="eraser_width_call"></span></span>
-        <input id="eraser_width" type="range" min="1" max="50" value="10" step="0.1">
-        <div id="btn2"><button id="eraser-btn"><img src="Cursor_picture/eraser.png">&nbsp지우개</button> <button id="destroy-btn"><img src="Cursor_picture/reset.png">&nbsp초기화</button></div>
-        <span>텍스트 크기_<span id="text_width_call"></span></span>
-        <input id="text_width" type="range" min="10" max="80" value="35" step="0.1">
-        <input id="text" type="text" placeholder="텍스트를 입력하고 캔버스를 더블클릭하세요.">
-        <select id="fontFamily" style="font-family: 굴림;">
-            <option value="">글꼴 선택  🔽</option>
-            <option style="font-family: 굴림;" value="굴림">굴림🔽</option>
-            <option style="font-family: 바탕;" value="바탕">바탕🔽</option>
-            <option style="font-family: 휴먼편지체;" value="휴먼편지체">휴먼편지체🔽</option>
-            <option style="font-family: HYPMokGak;" value="HYPMokGak">HYPMokGak🔽</option>
-            <option style="font-family: Brush Script MT;" value="Brush Script MT">Brush Script MT🔽</option>
-            <option style="font-family: Rage;" value="Rage">Rage🔽</option>
-            <option style="font-family: Gigi;" value="Gigi">Gigi🔽</option>
-        </select>
-        <label for="file">📂 사진 가져오기<input id="file" type="file" accept="image/*"></label>
-        <button id="save">💾 그림 저장하기</button>
-    </div>
-
-
-
-
+    
 
 
     <script src="app.js"></script>

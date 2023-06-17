@@ -21,8 +21,8 @@ const eraser_width_call = document.querySelector('#eraser_width_call');
 const text_width_call = document.querySelector('#text_width_call');
 
 const ctx = canvas.getContext('2d');
-const CANVAS_WIDTH = 800;
-const CANVAS_HEIGHT = 800; 
+const CANVAS_WIDTH = 1100;              //캔버스 크기지정(javascript에게 알리기)
+const CANVAS_HEIGHT = 630; 
 canvas.width = CANVAS_WIDTH; canvas.height = CANVAS_HEIGHT;
 
 ctx.lineWidth=line_width.value;
@@ -97,8 +97,10 @@ function onEraserWidthChange(event){        //지우개 두께 변경함수
 
 function onCanvasClick(){       //캔버스를 클릭했을 때 isFilling상태이면 전체 배경 채우기
     if(isFilling){
-        ctx.fillRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
-        canvas.style.backgroundColor = ctx.fillStyle;
+        if(confirm('기존에 그렸던 그림이 사라집니다 정말 배경색을 바꾸시겠습니까?')){
+            ctx.fillRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+            canvas.style.backgroundColor = ctx.fillStyle;
+        }
     }
 }
 function onFunctionChange(){
@@ -333,4 +335,3 @@ function changeFont(event){
     const selectedValue = selectedOption.value;
     event.target.style.fontFamily = `${selectedValue}`;
 }
-
